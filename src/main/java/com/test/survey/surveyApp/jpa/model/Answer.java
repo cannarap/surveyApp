@@ -1,14 +1,17 @@
-package com.test.survey.surveyApp.model;
+package com.test.survey.surveyApp.jpa.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "answers")
 public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "answer_id")
-    private Integer id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name="user_id")
@@ -17,6 +20,7 @@ public class Answer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
+    @JsonIgnore
     private Question question;
 
 
@@ -27,14 +31,6 @@ public class Answer {
 
     public Answer(){
 
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public User getUser() {
@@ -51,5 +47,21 @@ public class Answer {
 
     public void setSelectedOption(QuestionOption selectedOption) {
         this.selectedOption = selectedOption;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }

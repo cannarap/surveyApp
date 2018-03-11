@@ -1,15 +1,17 @@
-package com.test.survey.surveyApp.model;
+package com.test.survey.surveyApp.jpa.model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sna on 3/10/18.
- */
+
 
 @Entity
+@Table(name= "questions")
 public class Question {
 
     @Id
@@ -24,6 +26,7 @@ public class Question {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "survey_Id", nullable = false)
+    @JsonIgnore
     private Survey survey;
 
 
@@ -38,10 +41,50 @@ public class Question {
             mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
+    public Question() {}
+
 
     public Question(String text) {
         this.text = text;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
+
+    public List<QuestionOption> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<QuestionOption> options) {
+        this.options = options;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
 }

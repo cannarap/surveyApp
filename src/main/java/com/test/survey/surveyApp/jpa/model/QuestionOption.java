@@ -1,42 +1,36 @@
-package com.test.survey.surveyApp.model;
+package com.test.survey.surveyApp.jpa.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by sna on 3/10/18.
- */
 
 
 @Entity
+@Table(name = "questionOptions")
 public class QuestionOption {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "option_id")
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
+    @JsonIgnore
     private Question question;
 
     @NotNull
     @Column
     private String value;
 
+    public QuestionOption() {}
+
     public QuestionOption(String value){
         this.value = value;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
 
     public String getValue() {
         return value;
@@ -44,5 +38,21 @@ public class QuestionOption {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }

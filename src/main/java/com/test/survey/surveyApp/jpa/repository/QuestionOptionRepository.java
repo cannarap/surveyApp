@@ -1,7 +1,10 @@
 package com.test.survey.surveyApp.jpa.repository;
 
-/**
- * Created by sna on 3/11/18.
- */
-public interface QuestionOptionRepository {
+
+import com.test.survey.surveyApp.jpa.model.QuestionOption;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface QuestionOptionRepository extends JpaRepository<QuestionOption, Long> {
 }

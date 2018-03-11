@@ -1,7 +1,21 @@
 package com.test.survey.surveyApp.jpa.repository;
 
-/**
- * Created by sna on 3/11/18.
- */
-public interface QuestionRepository {
+
+import com.test.survey.surveyApp.jpa.model.Question;
+import com.test.survey.surveyApp.jpa.model.Survey;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface QuestionRepository extends JpaRepository<Question, Long> {
+
+    public List<Question>  findAllBySurvey(Survey survey);
+
+    public Question findQuestionBySurveyAndText(Survey survey, String text);
+
+
 }

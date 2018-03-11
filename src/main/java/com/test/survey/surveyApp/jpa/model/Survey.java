@@ -1,15 +1,15 @@
-package com.test.survey.surveyApp.model;
+package com.test.survey.surveyApp.jpa.model;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sna on 3/10/18.
- */
+
 
 @Entity
+@Table(name = "surveys")
 public class Survey {
 
     @Id
@@ -18,7 +18,7 @@ public class Survey {
     private  Long id;
 
     @NotNull
-    @Column
+    @Column(unique=true)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -26,9 +26,33 @@ public class Survey {
             mappedBy = "survey")
     private List<Question> questions = new ArrayList<>();
 
+    public Survey() {}
+
     public Survey(String name) {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 }
